@@ -75,9 +75,9 @@ struct UserImage: View {
         Image("ProfilePicture")
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .padding(.bottom, 75.0)
             .frame(width: 150.0, height: 150.0)
             .cornerRadius(/*@START_MENU_TOKEN@*/150.0/*@END_MENU_TOKEN@*/)
+            .padding(.bottom, 75.0)
     }
 }
 
