@@ -7,28 +7,51 @@
 
 import SwiftUI
 
+let storedUsername = "Myusername"
+let storedPassword = "Mypassword"
+
 struct ContentView: View {
     
     @State var username = ""
     @State var password = ""
+    @State var authenticationDidFail = false
+    @State var authenticationDidSucceed = true
     
     var body: some View {
-        VStack {
-            WelcomeText()
-            UserImage()
-            UsernameTextField(username: $username)
-            PasswordSecureField(password: $password)
-            Button(action: {
-                print("Login Button tapped.")
-            }) {
-                LoginButtonContent()
+        ZStack {
+            VStack {
+                WelcomeText()
+                UserImage()
+                UsernameTextField(username: $username)
+                PasswordSecureField(password: $password)
+                if authenticationDidFail {
+                    Text("Entered credentials incorrect. Try again.")
+                        .padding(.bottom, 15)
+                        .foregroundColor(.red)
+                }
+                Button(action: {
+                    if username == storedUsername && password == storedPassword {
+                        authenticationDidSucceed = true
+                        authenticationDidFail = false
+                    } else {
+                        authenticationDidFail = true
+                    }
+                }) {
+                    LoginButtonContent()
+                }
             }
+            .padding()
             
-                
- 
+            if authenticationDidSucceed {
+                Text("Login successful!")
+                    .font(.headline)
+                    .foregroundColor(Color.white)
+                    .frame(width: 250.0, height: 80.0)
+                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.green/*@END_MENU_TOKEN@*/)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                    .animation(Animation.default)
+            }
         }
-        .padding()
-        
     }
 }
 
